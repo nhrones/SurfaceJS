@@ -17,17 +17,13 @@ export let windowCFG = {
 export let elementDescriptors;
 
 /** 
- * To hold our application View-Manifest 
+ * our application base-Manifest 
  */
 let appManifest
 
-/* 
- * Initialize our configuration 
- */
 
 /**
- * Description placeholder
- * @date 3/17/2024 - 11:14:33 AM
+ * Initialize our configuration 
  *
  * @param {HTMLCanvasElement} theCanvas
  * @param {{ winCFG: { containerColor: string; textColor: string; }; nodes: any; }} cfg
@@ -55,7 +51,7 @@ export const fontColor = 'white'
  */
 export const getFactories = () => {
 
-   // Get the view_Manifest' base URL.
+   // Get the base_Manifest' base URL.
    const baseUrl = new URL("./", appManifest.baseUrl).href;
    const factories = new Map()
 
@@ -64,7 +60,6 @@ export const getFactories = () => {
       const url = new URL(self, baseUrl).href;
       const path = url.substring(baseUrl.length).substring("Views".length);
       const baseRoute = path.substring(3, path.length - 3);
-      console.log(`url ${url}, path  ${path}, baseRoute ${baseRoute}`)
       const name = sanitizeName(baseRoute);
       const id = name.toLowerCase();
       const newView = { id, name, url, component: module.default }
@@ -106,7 +101,7 @@ export const incrementTickCount = () => {
    if (tickCount > 60) {
       tickCount = 0 
       solid = !solid
-      //TODO fire 'blink' event
+      // fire 'blink' event
       signals.fire('Blink', "", solid)
    }
 }
@@ -124,8 +119,7 @@ export let canvas
 export let ctx
 
 export const setupRenderContext = (/** @type {HTMLCanvasElement} */ canvas) => {
-   // @ts-ignore
-   ctx = canvas.getContext("2d")
+   ctx = /** @type {CanvasRenderingContext2D}*/(canvas.getContext("2d"))
    refreshCanvasContext()
 }
 
