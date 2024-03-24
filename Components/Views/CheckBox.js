@@ -1,8 +1,5 @@
 /// <reference lib="dom" />
 import {   
-   ElementDescriptor, 
-   Location, 
-   View,
    ctx, 
    signals
 } from '../deps.js'

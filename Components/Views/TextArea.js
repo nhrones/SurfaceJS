@@ -1,15 +1,5 @@
 
-/// <reference lib="dom" />
 import Container from './Container.js'
-
-// import {
-//    ElementDescriptor,
-//    Location,
-//    View,
-//    ctx,
-//    signals,
-//    TextLine
-// } from '../deps.js'
 
 import {
    ctx,
@@ -19,7 +9,7 @@ import {
 import {
    HAIRSPACE,
    CARETBAR,
-} from '../mod.js'
+} from  '../ViewModels/constants.js'
 
 const dev = false
 

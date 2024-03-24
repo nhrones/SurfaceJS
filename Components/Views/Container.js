@@ -1,11 +1,10 @@
-/// <reference lib="dom" />
+
 import {
-   ElementDescriptor,
    ctx,
    signals
 } from '../deps.js'
 
-import Scrollbar from './Scrollbar.ts'
+import Scrollbar from './Scrollbar.js'
 
 /**
  * Scrollable Container class

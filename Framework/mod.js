@@ -1,29 +1,20 @@
 
-//=================================================
-//    Component Deps
-//=================================================
-//export * from '../Components/mod.ts'
-
-//======================================
-//      render 
-//======================================
-
-/* uiContainer.ts */
+/* uiContainer.js */
 export { 
    addElement,
    containerInit, 
    hydrateUI, 
    render
-} from './src/render/uiContainer.js'
+} from './render/uiContainer.js'
 
-/* activeNodes.ts */
+/* activeNodes.js */
 export { 
    activeNodes, 
    addNode, 
    renderNodes 
-} from './src/render/activeNodes.js'
+} from './render/activeNodes.js'
 
-/* renderContext.ts */
+/* renderContext.js */
 export { 
    canvas,
    ctx,
@@ -38,14 +29,9 @@ export {
    setupRenderContext,
    tickCount,
    windowCFG 
-} from './src/render/renderContext.js'
+} from './render/renderContext.js'
 
-//======================================
-//      coms 
-//======================================
+export { signals, buildSignalAggregator } from './events/signals.js'
+export { initHostEvents } from './events/systemEvents.js'
 
-export { signals, buildSignalAggregator } from './src/events/signals.js'
-export { initHostEvents } from './src/events/systemEvents.js'
-//TODO export type { CoreEvents } from './src/events/coreEventTypes.js'
-//TODO export * from './src/types.js'
   

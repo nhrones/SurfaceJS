@@ -57,7 +57,7 @@ export default class Scrollbar {
    }
 
    /**
-    * called from - container.ts - 97
+    * called from - container.js - 97
     * @param {number} ItemsLength
     * @param {number} capacity
     */
@@ -90,7 +90,7 @@ export default class Scrollbar {
    }
 
    /**
-    * called by the scroll event - container.ts - 63
+    * called by the scroll event - container.js - 63
     * @param {number} delta
     */
    scroll(delta) {

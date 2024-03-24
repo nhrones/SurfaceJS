@@ -1,4 +1,4 @@
-import { TextLine, ctx } from  '../deps.js'
+import { ctx } from  '../deps.js'
 import { PLACEHOLDER } from './constants.js'
 
 /**

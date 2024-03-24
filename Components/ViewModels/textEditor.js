@@ -4,7 +4,7 @@
 //import type { Editor, TextLine } from '../../Framework/src/types.js'
 
 import { signals } from '../../Framework/mod.js'
-import { InsertAt } from '../../Framework/src/constants.js'
+import { InsertAt } from '../../Framework/constants.js'
 
 import {
    handleEditEvents,

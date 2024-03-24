@@ -1,14 +1,3 @@
-/// <reference lib="dom" />
-// import { 
-//    ElementDescriptor, 
-//    Location, 
-//    View,
-//    ctx, 
-//    signals, 
-//    TextAlign, 
-//    TextBaseline,
-//    TextLocation 
-// } from '../deps.js'
 
 import { 
    ctx, 

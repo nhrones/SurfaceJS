@@ -1,13 +1,10 @@
-/// <reference lib="dom" />
+
 import {
-   ElementDescriptor,
-   Location,
-   View,
    ctx,
    signals
 } from '../deps.js'
 
-import Text from './Text.ts'
+import Text from './Text.js'
 
 /** 
  * A virtual Button-View class 
