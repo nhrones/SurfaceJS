@@ -1,11 +1,12 @@
 
 /** 
- * Named Signal types    
- * Each signal-type \<name\> is unique    
- * Each signal-type registers a payload-type 
- * This payload-type is type-checked when coding event-handles or fire-signals
+ * Named Signals    
+ * Each signal \<name\> is unique    
+ * Each signal registers a payload (type) 
+ * This payload is type-checked when coding event-handlers     
+ * or when firing signals
  */
-export const CoreEvents = {
+export const BaseSignals = {
    
    /*======= System Signals =======*/
 

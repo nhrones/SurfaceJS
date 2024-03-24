@@ -36,6 +36,13 @@ export default class Popup {
    fontSize = 28
 
    /** ctor that instantiates a new vitual Popup view */
+   /**
+    * Creates an instance of Popup.
+    * @date 3/24/2024 - 8:03:24 AM
+    *
+    * @constructor
+    * @param {*} el
+    */
    constructor(el) {
       this.tabOrder = el.tabOrder || 0
       this.enabled = true
@@ -47,6 +54,9 @@ export default class Popup {
       this.shownPath = this.buildPath(el.radius || 30)
       this.path = this.hiddenPath
       this.fontSize = el.fontSize || 8
+      /** @type {string[]} */
+      this.text = []
+
       //================================================
       //                bind signals
       //================================================
@@ -64,7 +74,10 @@ export default class Popup {
       path.roundRect(this.location.left, this.location.top, this.size.width, this.size.height, radius)
       return path
    }
-   /** show the virtual Popup view */
+   /**
+    * show the virtual Popup view
+    * @param {{ title: string; msg: string[]; }} data
+    */
    show(data) {
       signals.fire('FocusPopup', " ", this)
       this.title = data.title
@@ -138,7 +151,7 @@ export default class Popup {
       ctx.strokeText(this.title + ' ', left + 175, top + 100)
       let txtTop = top + 100
       // stroke each string in the array
-      this.text.forEach(str => {
+      this.text.forEach((/** @type {string} */ str) => {
          ctx.strokeText(str + ' ', left + 175, txtTop += 50)
       });
       ctx.restore()

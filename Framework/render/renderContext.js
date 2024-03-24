@@ -63,8 +63,8 @@ export const getFactories = () => {
    for (const [self, module] of Object.entries(baseManifest.Views)) {
       const url = new URL(self, baseUrl).href;
       const path = url.substring(baseUrl.length).substring("Views".length);
-      console.log('path ', path)
-      const baseRoute = path.substring(1, path.length - 3);
+      const baseRoute = path.substring(3, path.length - 3);
+      console.log(`url ${url}, path  ${path}, baseRoute ${baseRoute}`)
       const name = sanitizeName(baseRoute);
       const id = name.toLowerCase();
       const newView = { id, name, url, component: module.default }
