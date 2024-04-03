@@ -28,9 +28,12 @@ export default class ScoreButton {
 
    upperText = ""
    lowerText = ""
-   upperName = null;
-   lowerName = null;
-   scoreBox = null;
+   /** @type {Text.default} */
+   upperName;
+   /** @type {Text.default} */
+   lowerName
+   /** @type {Text.default} */
+   scoreBox
 
    /** Creates an instance of a virtual ScoreButton. */
    constructor(el) {
@@ -77,20 +80,17 @@ export default class ScoreButton {
 
       // rightside scores
       if (this.isLeftHanded) { // twos fours sixs
-         this.path = buildRightScore(this.location, this.size)
-         //@ts-ignore      
+         this.path = buildRightScore(this.location, this.size)    
          this.upperName = new Text.default({
             kind: 'text', idx: -1, tabOrder: 0, id: this.name + '-upperText', text: this.upperText,
             location: { left: left + 40, top: top + 10 },
             size: { width: 55, height: 30 }, color: this.color, bind: false
          })
-         //@ts-ignore
          this.lowerName = new Text.default({
             kind: 'text', idx: -1, tabOrder: 0, id: this.name + '-lowerText', text: this.lowerText,
             location: { left: left + 40, top: top + 40 },
             size: { width: 55, height: 30 }, color: this.color, bind: false
          })
-         //@ts-ignore
          this.scoreBox = new Text.default({
             kind: 'text', idx: -1, tabOrder: 0, id: this.name + '-score', text: '',
             location: { left: left + 5, top: top + 50 },
@@ -101,19 +101,16 @@ export default class ScoreButton {
       // left side scores
       else { // ones threes fives
          this.path = buildLeftScore(this.location, this.size)
-         //@ts-ignore
          this.upperName = new Text.default({
             kind: 'text', idx: -1, tabOrder: 0, id: this.name + '-upperText', text: this.upperText,
             location: { left: left + 10, top: top + 10 },
             size: { width: 55, height: 30 }, color: this.color, bind: false
          })
-         //@ts-ignore
          this.lowerName = new Text.default({
             kind: 'text', idx: -1, tabOrder: 0, id: this.name + '-lowerText', text: this.lowerText,
             location: { left: left + 10, top: top + 40 },
             size: { width: 55, height: 30 }, color: this.color, bind: false
          })
-         //@ts-ignore
          this.scoreBox = new Text.default({
             kind: 'text', idx: -1, tabOrder: 0, id: this.name + '-score', text: '',
             location: { left: left + 70, top: top + 3 },
@@ -146,23 +143,15 @@ export default class ScoreButton {
       ctx.fillStyle = this.color
       ctx.fill(this.path)
       if (this.upperName) {
-         //@ts-ignore
          this.upperName.fillColor = this.color
-         //@ts-ignore
          this.upperName.fontColor = windowCFG.containerColor
-         //@ts-ignore
          this.upperName.text = this.upperText
-         //@ts-ignore
          this.upperName.update()
       }
       if (this.lowerName) {
-         //@ts-ignore
          this.lowerName.fillColor = this.color
-         //@ts-ignore
          this.lowerName.fontColor = windowCFG.containerColor
-         //@ts-ignore
          this.lowerName.text = this.lowerText
-         //@ts-ignore
          this.lowerName.update()
       }
    }
@@ -174,13 +163,9 @@ export default class ScoreButton {
          scoreColor = this.color
       }
       if (this.scoreBox !== null) {
-         //@ts-ignore
          this.scoreBox.fontColor = scoreColor
-         //@ts-ignore
          this.scoreBox.fillColor = this.color
-         //@ts-ignore
          this.scoreBox.text = scoretext
-         //@ts-ignore
          this.scoreBox.update()
       }
    }

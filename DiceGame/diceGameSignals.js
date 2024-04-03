@@ -6,8 +6,6 @@
  * or when firing signals
  */
 export const DiceGameSignals = {
-   PopupReset: '',
-   FocusPopup: '',
    DieTouched: 0,
    ScoreElementResetTurn: '',
    UpdatePlayer: {

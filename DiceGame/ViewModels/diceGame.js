@@ -154,7 +154,7 @@ export class App {
    showFinalScore() {
       const winMsg =[]
       
-      winMsg.push('You won!')
+      winMsg.push('You Scored ' + thisPlayer.score)
       rollButton.state.color = 'black'
       rollButton.state.text = winMsg[0]
       rollButton.update()
@@ -164,19 +164,19 @@ export class App {
          fill: true,
          fillColor: "snow",
          fontColor: 'black',
-         text: winMsg[0] + ' ' + thisPlayer.score
+         text: winMsg[0]
       })
 
       // check and set high score
       if (thisPlayer.score > highScore) {
          PlaySound.Woohoo()
          setHighScore(thisPlayer.score)
-         localStorage.setItem("highScore", JSON.stringify(thisPlayer.score));
          winMsg.push("You set a new high score!")
       } else {
+         winMsg.push(`Missed high score by ${highScore - thisPlayer.score}`)
          PlaySound.Nooo()
       }
-      fire('ShowPopup', "", { title: 'Game Over!', msg: [""] })
+      fire('ShowPopup', "", { title: 'Game Over!', msg: winMsg })
    }
 
    /** check all scoreElements to see if game is complete */

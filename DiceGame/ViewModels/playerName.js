@@ -15,8 +15,12 @@ export const state = {
 /** PlayerName ViewModel initialization
  *  Called from DiceGame Controller ctor */
 export const init = () => {
-   gameSignals.on("UpdatePlayer", "0", (data) => {
-      //@ts-ignore
+   gameSignals.on("UpdatePlayer", "0", 
+   ( /** @type{{
+      index: 0,
+      color: "brown",
+      text: ""
+   }} */ data ) => {
       state.text = data.text
       update()
    })

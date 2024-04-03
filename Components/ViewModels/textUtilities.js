@@ -1,5 +1,4 @@
 
-//import { Editor } from '../deps.js'
 import { PLACEHOLDER } from './constants.js'
 
 //================================================

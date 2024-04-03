@@ -1,10 +1,7 @@
-/// <reference lib="dom" />
-import {  
-   ctx, 
-   setHasVisiblePopup, 
-   fire, 
-   on,
-   windowCFG 
+
+import {
+   ctx, setHasVisiblePopup,
+   fire, on, windowCFG
 } from '../deps.js'
 
 import Text from './Text.js'
@@ -30,11 +27,14 @@ export default class Popup {
    location
    size
    color = "black"
-   textNode
-   text = ""
-   fontColor = "red"
-   fontSize = 28
+   title = ""
+   /** @type {CanvasTextAlign} */
+   textAlign = "center"
    visible = true
+   /** @type {ImageData} */
+   buffer
+   fontSize = 28
+   fontColor = "black"
 
    /**
     * ctor that instantiates a new vitual Popup view
@@ -46,7 +46,7 @@ export default class Popup {
     * } el
     */
    constructor(el) {
-      this.tabOrder = el.tabOrder  || 0
+      this.tabOrder = el.tabOrder || 0
       this.enabled = true
       this.color = 'white'
       this.location = el.location
@@ -56,7 +56,10 @@ export default class Popup {
       this.shownPath = this.buildPath(el.radius || 30)
       this.path = this.hiddenPath
       this.fontSize = el.fontSize || 24
-      this.textNode = new Text (
+      this.fontColor = "black"
+      /** @type {string[]} */
+      this.text = []
+      this.textNode = new Text(
          {
             kind: 'Text',
             idx: -1,
@@ -74,9 +77,8 @@ export default class Popup {
       //================================================
 
       // Our game controller broadcasts this ShowPopup event at the end of a game
-      on('ShowPopup',"", (data) => {
-         //@ts-ignore
-         this.show(data.msg)
+      on('ShowPopup', "", ( /** @type {{title: String, msg: string[]}} */ data) => {
+         this.show(data)
       })
 
       on('HidePopup', "", () => this.hide())
@@ -90,20 +92,38 @@ export default class Popup {
       path.roundRect(this.location.left, this.location.top, this.size.width, this.size.height, radius)
       return path
    }
-   
+
    /**
     * show the virtual Popup view
-    * @param {string[]} msg
+    * @param {{ title: string; msg: string[]; }} data
     */
-   show(msg) {
-      fire('FocusPopup'," ", null)
-      this.text = msg[0]
+   show(data) {
+      fire('FocusPopup', " ", null)
+      this.title = data.title
+      this.text = data.msg
       left = this.location.left
       top = this.location.top
       this.path = this.shownPath
       this.visible = true
+      this.saveScreenToBuffer()
       setHasVisiblePopup(true)
       this.render()
+   }
+
+   /** takes a snapshot of our current canvas bitmap */
+   saveScreenToBuffer() {
+      const { left, top } = this.location
+      const { width, height } = this.size
+      console.log(`Buffer = left:${left}, top:${top}, width:${width}, height:${height}`)
+
+      this.buffer = ctx.getImageData(0, 0, ctx.canvas.width, ctx.canvas.height)
+   }
+
+   /** paint the canvas with our current snapshot */
+   restoreScreenFromBuffer() {
+      if (this.buffer) {
+         return ctx.putImageData(this.buffer, 0, 0)
+      }
    }
 
    /** hide the virtual Popup view */
@@ -112,6 +132,7 @@ export default class Popup {
          left = 1
          top = 1
          this.path = this.hiddenPath
+         this.restoreScreenFromBuffer()
          this.visible = false
          setHasVisiblePopup(false)
       }
@@ -120,7 +141,7 @@ export default class Popup {
    /** called from Surface/canvasEvents when this element has been touched */
    touched() {
       this.hide()
-      fire('PopupReset','', null)
+      fire('PopupReset', '', null)
    }
 
    /** update this virtual Popups view (render it) */
@@ -143,11 +164,14 @@ export default class Popup {
       ctx.lineWidth = 1
       ctx.strokeStyle = windowCFG.textColor
       ctx.stroke(this.path)
-      this.textNode.fontSize = this.fontSize
-      this.textNode.fillColor = this.color
-      this.textNode.fontColor = this.fontColor
-      this.textNode.text = this.text
-      this.textNode.update()
+      ctx.font = `${this.fontSize}px Tahoma, Verdana, sans-serif`;
+      ctx.textAlign = /** @type {CanvasTextAlign} */ this.textAlign
+      ctx.strokeText(this.title + ' ', left + 175, top + 100)
+      let txtTop = top + 100
+      // stroke each string in the array
+      this.text.forEach((/** @type {string} */ str) => {
+         ctx.strokeText(str + ' ', left + 175, txtTop += 50)
+      });
       ctx.restore()
       this.visible = true
    }

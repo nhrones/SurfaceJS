@@ -3,14 +3,12 @@
 // This file is automatically updated during development when running `dev.js`.
 
 import * as $0 from "./Views/Die.js";
-import * as $1 from "./Views/Popup.js";
-import * as $2 from "./Views/ScoreButton.js";
+import * as $1 from "./Views/ScoreButton.js";
 
 const manifest = {
   Views: {
     "./Views/Die.js": $0,
-    "./Views/Popup.js": $1,
-    "./Views/ScoreButton.js": $2,
+    "./Views/ScoreButton.js": $1,
   },
   baseUrl: import.meta.url,
 };

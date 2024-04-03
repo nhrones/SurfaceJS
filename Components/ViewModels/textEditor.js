@@ -80,12 +80,10 @@ export class TextEditor {
 
       // a View or a VM will report its TextMetrics on initialization
       on('TextMetrics', this.id, (data) => {
-         //@ts-ignore
-         this.containerSize = data.size;
-         //@ts-ignore
-         this.textCapacity = data.capacity.columns - 1;
-         //@ts-ignore
-         this.rowCapacity = data.capacity.rows;
+         const {size, capacity} = /** @type {any} */ (data)
+         this.containerSize = size;
+         this.textCapacity = capacity.columns - 1;
+         this.rowCapacity = capacity.rows;
          this.refreshLines(InsertAt.TxtEnd)
       })
 
@@ -96,15 +94,13 @@ export class TextEditor {
       })
 
       // listen for a focus change event
-      on('Focused', this.id, (hasFocus) => {
+      on('Focused', this.id, (/** @type {boolean} */ hasFocus) => {
          // have liveText update the view (sets liveText focus state)
-         //@ts-ignore
          this.updateText(this.id, hasFocus, "Focused");
       })
 
       // Input eventhandler -> data: string
-      on(`WindowInput`, this.id, (evt) => {
-         //@ts-ignore
+      on(`WindowInput`, this.id, (/** @type {{ data: string }} */ evt) => {
          insertChars(this, evt.data)
       })
 

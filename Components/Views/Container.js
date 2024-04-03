@@ -1,5 +1,5 @@
 
-import { ctx, on  } from '../deps.js'
+import { ctx, fire, on } from '../deps.js'
 
 
 import Scrollbar from './Scrollbar.js'
@@ -63,16 +63,15 @@ export default class Container {
       this.scrollBar = new Scrollbar(this)
 
       on("Scroll", "", (evt) => {
-         //@ts-ignore
-         this.scrollBar.scroll(evt.deltaY)
+         const { deltaY } = /** @type { {deltaY: number} } */ (evt)
+         this.scrollBar.scroll(deltaY)
       })
 
       // a View or a VM will report its TextMetrics on initialization
       on('TextMetrics', this.name, (data) => {
-         //@ts-ignore
-         this.textCapacity = data.capacity.columns - 1;
-         //@ts-ignore
-         this.rowCapacity = data.capacity.rows;
+         const {capacity} = /** @type { {capacity:{rows: Number, columns: number}}} */ (data)
+         this.textCapacity = capacity.columns - 1;
+         this.rowCapacity = capacity.rows;
       })
    }
 

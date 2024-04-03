@@ -43,7 +43,6 @@ export function initHostEvents() {
       // look for a focused node, if none, just ignore the event
       if (focusedNode !== null) {
          // we'll fire this event directly to amy focused node
-         //@ts-ignore
          fire('WindowInput', focusedNode.name, evt)
       }
    })
@@ -78,7 +77,6 @@ export function initHostEvents() {
       // look for a currently `focused` node
       if (focusedNode !== null) {
          // we'll signal only the node with focus
-         //@ts-ignore
          fire('WindowKeyDown', focusedNode.name, evt)
       }
    })
@@ -108,9 +106,8 @@ export function initHostEvents() {
 
    // we send all scroll events unconditionally 
    // to service any scrollable containers
-   addEventListener('scroll', (evt) => {
+   addEventListener('scroll', (/** @type{*} */ evt) => {
       evt.preventDefault();
-      //@ts-ignore
       const y = (Math.sign(evt.scrollY));
       fire('Scroll', "", { deltaY: y })
    });

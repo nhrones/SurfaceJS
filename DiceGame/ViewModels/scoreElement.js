@@ -31,7 +31,7 @@ export default class ScoreElement {
    owned
    index
    name
-   owner = null
+   owner
    finalValue
    possibleValue
    scoringDieset
@@ -63,9 +63,10 @@ export default class ScoreElement {
          }
       })
 
-      gameSignals.on(`UpdateTooltip`, this.index.toString(), (data) => {
+      gameSignals.on(`UpdateTooltip`, this.index.toString(),
+       (/** @type {{ hovered: false }} */ data) => {
          let msg = ''
-         const _thisState = LabelState.Normal
+         let thisState = LabelState.Normal
 
          /* state
              0 = 'normal'
@@ -73,19 +74,15 @@ export default class ScoreElement {
              2 = 'hovered' (has owner)
              3 = 'reset' from hovered 
          */
-         //@ts-ignore
          if (data.hovered) {
             if (this.owned) {
-               //@ts-ignore
                thisState = LabelState.HoveredOwned  // hovered (has owner)
                msg = `${thisPlayer.playerName} owns ${this.name} with ${this.scoringDieset.toString()}`
             } else { // hovered not owned
-               //@ts-ignore
                thisState = LabelState.Hovered // hovered (not owned)
                msg = `${this.name}`
             }
          } else { // not hovered
-            //@ts-ignore
             thisState = LabelState.Reset // reset (not hovered)
             msg = ''
          }
@@ -115,13 +112,14 @@ export default class ScoreElement {
       )
    }
 
-   /** sets a flag to indicate this score is owned by the current player */
+   /**
+    * sets a flag to indicate this score is owned by the current player
+    * @param {boolean} value
+    */
    setOwned(value) {
       this.owned = value
       if (this.owned) {
-         //@ts-ignore
          this.owner = thisPlayer
-         //@ts-ignore
          this.updateScoreElement(this.owner.color, this.possibleValue.toString())
       }
       else {
@@ -136,7 +134,6 @@ export default class ScoreElement {
          {
             index: this.index,
             renderAll: false,
-            //@ts-ignore
             fillColor: (this.owner) ? this.owner.color : 'black',
             value: value,
             available: this.available

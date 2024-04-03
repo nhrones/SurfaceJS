@@ -5,7 +5,7 @@ import {BaseSignals} from './baseSignals.js'
  * @example buildSignalAggregator<CoreEvents & LocalEvents>()
  */
 const signals = buildSignalAggregator(BaseSignals)
-export const {fire, on} = signals
+export const {on, fire} = signals
 /** 
  * A factory function used to create a SignalAggregator service.
  * @example 

@@ -1,5 +1,5 @@
 
-import { ctx, fire, on  } from '../deps.js'
+import { ctx, fire, on } from '../deps.js'
 
 import Text from './Text.js'
 
@@ -63,7 +63,7 @@ export default class Button {
 
       // a VM will emit this event whenever it needs to update the view
       on('UpdateButton', this.name,
-         (/** @type {{ enabled: boolean; color: string; text: string; }} */ data) => {
+          (/** @type {{ enabled: boolean; color: string; text: string; }} */data) => {
             this.enabled = data.enabled
             this.color = data.color
             this.text = data.text

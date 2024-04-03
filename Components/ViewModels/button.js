@@ -1,5 +1,5 @@
 
-import { fire, on } from '../deps.js'
+import { on, fire } from '../deps.js'
 
 // used to recognize signals from a (decoupled) view
 let thisID;

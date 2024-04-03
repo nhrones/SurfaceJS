@@ -42,10 +42,10 @@ export const BaseSignals = {
    },
    
    /** Window Input signal */
-   WindowInput: InputEvent,
+   WindowInput: {},//InputEvent,
 
    /** Window KeyDown signal */
-   WindowKeyDown: KeyboardEvent,
+   WindowKeyDown: {},//KeyboardEvent,
      
    /*======= Base Events =======*/
    
@@ -58,10 +58,7 @@ export const BaseSignals = {
    /** Text Metrics update signal */
    TextMetrics: {
       size: {width: 0, height: 0},
-      capacity: {
-         rows: 0,
-         columns: 0
-      }
+      capacity: { rows: 0, columns: 0 }
    },
 
    /** Update \<Text\> view touched signal */

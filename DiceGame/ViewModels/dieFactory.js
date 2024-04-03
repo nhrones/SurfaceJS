@@ -13,7 +13,14 @@ export function buildDieFaces(){
     
     const start = performance.now()
     const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
+    
+    /**
+     * Description placeholder
+     * @date 4/3/2024 - 1:20:45 PM
+     *
+     * @type { CanvasRenderingContext2D }
+     */
+    const ctx = /** @type {CanvasRenderingContext2D} */ (canvas.getContext("2d"));
 
     canvas.width = dieSize.width
     canvas.height = dieSize.height
@@ -35,9 +42,9 @@ export function buildDieFaces(){
     ]
     
     size = dieSize.width
-    //@ts-ignore
+   
     ctx.fillStyle = color
-    //@ts-ignore
+   
     ctx.fillRect(0, 0, size, size)
     
     for (let i = 0; i < 7; i++) {
