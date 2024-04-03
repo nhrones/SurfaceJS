@@ -1,7 +1,7 @@
-import { signals } from '../deps.js'
-import * as PlaySound from './sounds.js'
 
-import { on, fire, thisPlayer } from '../main.js'
+import * as PlaySound from './sounds.js'
+import { fire } from '../deps.js'
+import { gameSignals, thisPlayer } from '../main.js'
 
 import * as dice from './dice.js'
 import * as Possible from './possible.js'
@@ -57,13 +57,13 @@ export default class ScoreElement {
       //                bind signals
       //================================================
 
-      on('ScoreButtonTouched', this.index.toString(), (_index) => {
+      gameSignals.on('ScoreButtonTouched', this.index.toString(), () => {
          if (this.clicked()) {
-            fire(`ScoreElementResetTurn`, "", null)
+            gameSignals.fire(`ScoreElementResetTurn`, "", "")
          }
       })
 
-      on(`UpdateTooltip`, this.index.toString(), (data) => {
+      gameSignals.on(`UpdateTooltip`, this.index.toString(), (data) => {
          let msg = ''
          const _thisState = LabelState.Normal
 
@@ -73,7 +73,7 @@ export default class ScoreElement {
              2 = 'hovered' (has owner)
              3 = 'reset' from hovered 
          */
-
+         //@ts-ignore
          if (data.hovered) {
             if (this.owned) {
                //@ts-ignore
@@ -90,7 +90,7 @@ export default class ScoreElement {
             msg = ''
          }
 
-         signals.fire(`UpdateText`, 'infolabel',
+         fire(`UpdateText`, 'infolabel',
             {
                border: false,
                fill: true,
@@ -104,7 +104,7 @@ export default class ScoreElement {
 
    /** broadcasts a message used to update the bottom infolabel element */
    updateInfo(text) {
-      signals.fire(`UpdateText`, 'infolabel',
+      fire(`UpdateText`, 'infolabel',
          {
             border: false,
             fill: true,
@@ -132,7 +132,7 @@ export default class ScoreElement {
 
    /** fires signal used to update the score value */
    renderValue(value) {
-      fire(`UpdateScoreElement`, this.index.toString(),
+      gameSignals.fire(`UpdateScoreElement`, this.index.toString(),
          {
             index: this.index,
             renderAll: false,
@@ -146,7 +146,7 @@ export default class ScoreElement {
 
    /**  broadcasts a message used to update the score view element */
    updateScoreElement(color, value) {
-      fire(`UpdateScoreElement`, this.index.toString(),
+      gameSignals.fire(`UpdateScoreElement`, this.index.toString(),
          {
             index: this.index,
             renderAll: true,

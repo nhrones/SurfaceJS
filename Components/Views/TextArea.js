@@ -1,10 +1,6 @@
 
 import Container from './Container.js'
-
-import {
-   ctx,
-   signals
-} from '../deps.js'
+import { ctx, fire, on } from '../deps.js'
 
 import {
    HAIRSPACE,
@@ -81,22 +77,22 @@ export default class TextArea extends Container {
       )
 
       // report the metrics to any interested party
-      signals.fire('TextMetrics', this.name,
+      fire('TextMetrics', this.name,
          {
             size: this.size,
             capacity: { rows: this.rowCapacity, columns: this.textCapacity }
          }
       )
 
-      signals.on("Blink", "", (/** @type {boolean} */ data) => {
+      on("Blink", "", (/** @type {boolean} */ data) => {
          this.solidCaret = data
          this.render()
          console.log('Blink')
       })
 
       // the VM will emit this event whenever it needs to update the View            
-      signals.on('UpdateTextArea', this.name, 
-      (/** @type {{ _reason: any; text: any; lines: any; focused: any; insertionColumn: any; insertionRow: any; selectStart: any; selectEnd: any; }} */ data) => {
+      on('UpdateTextArea', this.name, 
+      (data) => {
          const {
             _reason,
             text,
@@ -106,7 +102,7 @@ export default class TextArea extends Container {
             insertionRow,
             selectStart,
             selectEnd,
-         } = data
+         } = /** @type{any}*/ (data)
 
          this.insertionColumn = insertionColumn
          this.insertionRow = insertionRow
@@ -160,7 +156,7 @@ export default class TextArea extends Container {
    }
 
    touched() {
-      signals.fire('TextViewTouched', this.name, null)
+      fire('TextViewTouched', this.name, null)
    }
 
    update() {

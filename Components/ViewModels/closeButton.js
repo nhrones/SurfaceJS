@@ -1,4 +1,5 @@
-import { signals } from '../deps.js'
+import { on } from '../deps.js'
+
 
 // used to recognize signals from a (decoupled) view
 let thisID;
@@ -10,7 +11,7 @@ let thisID;
 export const initCloseButton = (id) => {    
     thisID = id   
     // listens for a touch event from this buttom 
-    signals.on('ButtonTouched', thisID, () => {
+    on('ButtonTouched', thisID, () => {
         console.log("window.close");
         self.close()
     })

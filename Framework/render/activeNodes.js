@@ -1,6 +1,6 @@
 
 import { ctx, incrementTickCount } from './renderContext.js'
-import { signals } from '../events/signals.js'
+import { fire } from '../mod.js'
 
 //===============================  activeNodes  ======================================
 //       
@@ -29,7 +29,7 @@ export const addNode = (view) => {
    activeNodes.add(view)
    
    // inform any interested parties that a new View UI was added
-   signals.fire('AddedView', "",
+   fire('AddedView', "",
       {
          type: view.constructor.name,
          index: view.index,

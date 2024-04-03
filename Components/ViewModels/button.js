@@ -1,5 +1,5 @@
 
-import { signals } from '../deps.js'
+import { fire, on } from '../deps.js'
 
 // used to recognize signals from a (decoupled) view
 let thisID;
@@ -11,8 +11,8 @@ let thisID;
 export const initButton = (id) => {
    thisID = id
    // listens for a touch event from a Button view with the same id 
-   signals.on('ButtonTouched', thisID, () => {
+   on('ButtonTouched', thisID, () => {
       // fire an event to show a popup
-      signals.fire('ShowPopup', '', { title: "", msg: [""] })
+      fire('ShowPopup', '', { title: "", msg: [""] })
    })
 }

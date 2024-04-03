@@ -1,5 +1,4 @@
-
-import { on, fire } from '../main.js'
+import { gameSignals } from '../main.js'
 import * as evaluator from './diceEvaluator.js'
 import { appInstance } from './diceGame.js'
 import * as PlaySound from './sounds.js'
@@ -47,8 +46,8 @@ export const init = () => {
    //================================================
 
    // register a callback function for the `internal` DieTouched signal
-   on(`DieTouched`, "", (data) => {
-      const { index } = data
+   gameSignals.on(`DieTouched`, "", (data) => {
+      const index = /** @type {number} */(data)
       const thisDie = die[index]
       if (thisDie.value > 0) {
          thisDie.frozen = !thisDie.frozen // toggle frozen
@@ -111,7 +110,7 @@ export const roll = (dieValues) => {
  * @param value {number} the die value to show in the view
  * @param frozen {boolean} the frozen state of this die */
 const updateView = (index, value, frozen) => {
-   fire('UpdateDie', index.toString(), { index: index, value: value, frozen: frozen })
+   gameSignals.fire('UpdateDie', index.toString(), { index: index, value: value, frozen: frozen })
 }
 
 /** returns the set of die values as a formatted string */

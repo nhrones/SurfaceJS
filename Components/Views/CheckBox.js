@@ -1,12 +1,7 @@
-/// <reference lib="dom" />
-import {   
-   ctx, 
-   signals
-} from '../deps.js'
 
-/** 
- * A virtual CheckBox-View class 
- */
+import { ctx, fire, on } from '../deps.js'
+
+/** A virtual CheckBox-View class */
 export default class CheckBox {
 
    id = 0
@@ -54,7 +49,7 @@ export default class CheckBox {
       //================================================
 
       // a VM will emit this event whenever it needs to update the view
-      signals.on('UpdateCheckBox', this.name,
+      on('UpdateCheckBox', this.name,
          (/** @type {{ checked: boolean; color: string; text: string; }} */ data) => {
             this.checked = data.checked
             this.color = data.color
@@ -83,7 +78,7 @@ export default class CheckBox {
     */
    touched() {
       if (this.enabled) {
-         signals.fire('CheckBoxTouched', this.name, { checked: this.enabled })
+         fire('CheckBoxTouched', this.name, { checked: this.enabled })
       }
    }
 

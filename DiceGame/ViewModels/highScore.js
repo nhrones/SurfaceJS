@@ -1,4 +1,4 @@
-import { signals } from '../deps.js'
+import { fire } from '../deps.js'
 
 export const serverURL = document.location.origin
 
@@ -8,7 +8,7 @@ export let highScore = 0
 export function setHighScore(value) {
    highScore = value
    localStorage.setItem("highscore", value + "")
-   signals.fire('UpdateText', 'highScoreValue',
+   fire('UpdateText', 'highScoreValue',
       {
          border: false,
          fill: true,
@@ -29,7 +29,7 @@ export function getHighScore() {
 export function setupHighScore() {
    if (highScore === 0) getHighScore()
    setHighScore(highScore)
-   signals.fire('UpdateText', 'highScoreValue',
+   fire('UpdateText', 'highScoreValue',
       {
          border: false,
          fill: true,

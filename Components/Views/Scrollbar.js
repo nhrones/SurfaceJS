@@ -1,5 +1,4 @@
 
-/// <reference lib="dom" />
 import { ctx } from '../deps.js'
 import ScrollableContainer from './Container.js'
 

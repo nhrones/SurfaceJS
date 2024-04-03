@@ -5,7 +5,8 @@
 export { 
    ctx, 
    setHasVisiblePopup, 
-   signals,  
+   fire,
+   on,  
    tickCount,
    windowCFG  
 } from '../Framework/mod.js'

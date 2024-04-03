@@ -1,9 +1,5 @@
-// deno-lint-ignore-file no-explicit-any
-/// <reference lib="dom" />
 
-//import type { Editor, TextLine } from '../../Framework/src/types.js'
-
-import { signals } from '../../Framework/mod.js'
+import { fire, on } from '../deps.js'
 import { InsertAt } from '../../Framework/constants.js'
 
 import {
@@ -83,32 +79,37 @@ export class TextEditor {
       this.id = id
 
       // a View or a VM will report its TextMetrics on initialization
-      signals.on('TextMetrics', this.id, (data) => {
+      on('TextMetrics', this.id, (data) => {
+         //@ts-ignore
          this.containerSize = data.size;
+         //@ts-ignore
          this.textCapacity = data.capacity.columns - 1;
+         //@ts-ignore
          this.rowCapacity = data.capacity.rows;
          this.refreshLines(InsertAt.TxtEnd)
       })
 
       // listen for a touch event
-      signals.on('TextViewTouched', this.id, () => {
+      on('TextViewTouched', this.id, () => {
          // update the view
          this.updateText(this.id, true, "TextViewTouched")
       })
 
       // listen for a focus change event
-      signals.on('Focused', this.id, (hasFocus) => {
+      on('Focused', this.id, (hasFocus) => {
          // have liveText update the view (sets liveText focus state)
+         //@ts-ignore
          this.updateText(this.id, hasFocus, "Focused");
       })
 
       // Input eventhandler -> data: string
-      signals.on(`WindowInput`, this.id, (evt) => {
+      on(`WindowInput`, this.id, (evt) => {
+         //@ts-ignore
          insertChars(this, evt.data)
       })
 
       // KeyDown eventhandler for: enter, backspace, delete, arrows, shiftKey, ctrlKey  
-      signals.on('WindowKeyDown', this.id, (evt) => { // OK
+      on('WindowKeyDown', this.id, (/** @type {any} */evt) => { // OK
          const { ctrlKey, shiftKey } = evt
          // a `ctrlKey` implies an edit command 
          // trap and handle the edit commands 
@@ -443,11 +444,11 @@ export class TextEditor {
     */
    updateText(id, hasfocus, reason) { // OK
       this.focused = hasfocus
-      signals.fire('UpdateTextArea', id,
+      fire('UpdateTextArea', id,
          {
             reason: reason,
             text: this.fullText,
-            lines: this.lines,
+            lines: /** @type {never[]} */(this.lines),
             focused: this.focused,
             insertionColumn: this.insertionColumn,
             insertionRow: this.insertionRow,

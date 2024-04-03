@@ -8,16 +8,15 @@ import {
 } from "./deps.js";
 import * as PlaySound from './ViewModels/sounds.js'
 import { App, appInstance } from './ViewModels/diceGame.js';
+import { DiceGameSignals } from './diceGameSignals.js'
 
 // Import configuration files
 import { cfg } from "./cfg.js";
 import manifest from './view_manifest.js'
-console.log('manifest', manifest)
-/** 
- * Use the factory function to create a new SignalAggregator service 
- */
-const diceSignals = buildSignalAggregator()
-export const { on, fire } = diceSignals
+
+/** Use the factory function to create a new SignalAggregator service */
+export const gameSignals = buildSignalAggregator(DiceGameSignals)
+
 /** initialize the button */
 initCloseButton('closebutton')
 
@@ -27,11 +26,11 @@ const context = new AudioContext();
 PlaySound.init(context)
 
 /** Our only DOM element -- a single canvas */
-const cannvy = document.getElementById('surface')
+const surfaceCanvas = document.getElementById('surface')
 
 // Initialize the Host Container 
 containerInit(
-   cannvy,
+   surfaceCanvas,
    cfg,
    manifest
 )

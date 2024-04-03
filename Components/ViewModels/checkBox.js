@@ -1,4 +1,4 @@
-import { signals } from  '../deps.js'
+import { fire, on } from '../deps.js'
 
 // used to recognize signals from a (decoupled) view
 let thisID;
@@ -18,10 +18,10 @@ export const initCheckbox = (id) => {
    thisID = id
 
    // listens for a touch event from this checkbox 
-   signals.on('CheckBoxTouched', thisID, () => {
+   on('CheckBoxTouched', thisID, () => {
       checked = !checked
       txt = (checked) ? checkmark : empty
-      signals.fire('UpdateButton', thisID,
+      fire('UpdateButton', thisID,
          { text: txt, color: "green", enabled: true }
       )
    })

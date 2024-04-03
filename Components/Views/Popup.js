@@ -2,7 +2,8 @@
 import {  
    ctx, 
    setHasVisiblePopup, 
-   signals,
+   fire, 
+   on,
    windowCFG 
 } from '../deps.js'
 
@@ -73,11 +74,12 @@ export default class Popup {
       //================================================
 
       // Our game controller broadcasts this ShowPopup event at the end of a game
-      signals.on('ShowPopup',"", (/** @type {{ msg: string[]; }} */ data) => {
+      on('ShowPopup',"", (data) => {
+         //@ts-ignore
          this.show(data.msg)
       })
 
-      signals.on('HidePopup', "", () => this.hide())
+      on('HidePopup', "", () => this.hide())
    }
    /**
     * build a Path2D
@@ -94,7 +96,7 @@ export default class Popup {
     * @param {string[]} msg
     */
    show(msg) {
-      signals.fire('FocusPopup'," ", this)
+      fire('FocusPopup'," ", null)
       this.text = msg[0]
       left = this.location.left
       top = this.location.top
@@ -118,7 +120,7 @@ export default class Popup {
    /** called from Surface/canvasEvents when this element has been touched */
    touched() {
       this.hide()
-      signals.fire('PopupReset','', null)
+      fire('PopupReset','', null)
    }
 
    /** update this virtual Popups view (render it) */

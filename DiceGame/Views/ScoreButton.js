@@ -1,21 +1,14 @@
-/// <reference lib="dom" />
-import {
-   Text,
-   windowCFG,
-   ctx
-} from '../deps.js'
 
-import { on, fire  } from '../main.js'
-
+import { Text, windowCFG, ctx } from '../deps.js'
+import { gameSignals } from '../main.js'
 import { SCORE_CFG, PossibleColor } from '../cfg.js'
-
 import { buildRightScore, buildLeftScore } from '../ViewModels/pathFactory.js'
 
 /** A virtual ScoreButton view class */
 export default class ScoreButton {
 
    id = 0 // assigned by activeViews.add()   
-   zOrder = 0   
+   zOrder = 0
    tabOrder = 0
    name
    index
@@ -43,7 +36,7 @@ export default class ScoreButton {
    constructor(el) {
 
       this.index = el.idx
-      this.tabOrder = el.tabOrder  || 0
+      this.tabOrder = el.tabOrder || 0
       this.name = el.id
       this.text = el.text || ''
       this.tooltip = `${this.name} available`
@@ -56,69 +49,82 @@ export default class ScoreButton {
       this.lowerText = this.text.split(' ')[1] || ''
       this.isLeftHanded = (el.idx % 2 === 1) // isLeft = index is odd/even 
       this.buildPath()
-      
+
       //================================================
       //                bind signals
       //================================================
 
-      on('UpdateScoreElement', this.index.toString(), (data) => {
-               if (data.renderAll) {
-                  this.color = data.fillColor
-                  this.render()
-               }
-               this.available = data.available
-               this.scoreText = data.value
-               this.renderScore(data.value, data.available)
-            
-         })
+      gameSignals.on('UpdateScoreElement', this.index.toString(), (data) => {
+         const {available, renderAll, fillColor, value } = /** @type {any} */(data)
+         if (renderAll) {
+            this.color = fillColor
+            this.render()
+         }
+         this.available = available
+         this.scoreText = value
+         this.renderScore(value, available)
+
+      })
    }
 
-   
-   
-   
+
+
+
    /** build the correct (left/right) path and Txt locations */
    buildPath() {
       //const s = this
       const { left, top } = this.location
-      
+
       // rightside scores
       if (this.isLeftHanded) { // twos fours sixs
          this.path = buildRightScore(this.location, this.size)
          //@ts-ignore      
-         this.upperName = new Text.default({ kind: 'text', idx: -1, tabOrder: 0, id: this.name + '-upperText', text: this.upperText, 
-         location: { left: left + 40, top: top + 10 }, 
-         size: { width: 55, height: 30 }, color: this.color, bind: false })
+         this.upperName = new Text.default({
+            kind: 'text', idx: -1, tabOrder: 0, id: this.name + '-upperText', text: this.upperText,
+            location: { left: left + 40, top: top + 10 },
+            size: { width: 55, height: 30 }, color: this.color, bind: false
+         })
          //@ts-ignore
-         this.lowerName = new Text.default({ kind: 'text', idx: -1, tabOrder: 0, id: this.name + '-lowerText', text: this.lowerText, 
-         location: { left: left + 40, top: top + 40 }, 
-         size: { width: 55, height: 30 }, color: this.color, bind: false })
+         this.lowerName = new Text.default({
+            kind: 'text', idx: -1, tabOrder: 0, id: this.name + '-lowerText', text: this.lowerText,
+            location: { left: left + 40, top: top + 40 },
+            size: { width: 55, height: 30 }, color: this.color, bind: false
+         })
          //@ts-ignore
-         this.scoreBox = new Text.default({ kind: 'text', idx: -1, tabOrder: 0, id: this.name + '-score', text: '', 
-         location: { left: left + 5 , top: top + 50 }, 
-         size: { width: 24, height: 24 }, color: this.color, padding: 10, bind: false })
-         
-      } 
+         this.scoreBox = new Text.default({
+            kind: 'text', idx: -1, tabOrder: 0, id: this.name + '-score', text: '',
+            location: { left: left + 5, top: top + 50 },
+            size: { width: 24, height: 24 }, color: this.color, padding: 10, bind: false
+         })
+
+      }
       // left side scores
       else { // ones threes fives
          this.path = buildLeftScore(this.location, this.size)
          //@ts-ignore
-         this.upperName = new Text.default({ kind: 'text', idx: -1, tabOrder: 0, id: this.name + '-upperText', text: this.upperText,  
+         this.upperName = new Text.default({
+            kind: 'text', idx: -1, tabOrder: 0, id: this.name + '-upperText', text: this.upperText,
             location: { left: left + 10, top: top + 10 },
-            size: { width: 55, height: 30 }, color: this.color, bind: false })
-            //@ts-ignore
-            this.lowerName = new Text.default({ kind: 'text', idx: -1, tabOrder: 0, id: this.name + '-lowerText', text: this.lowerText, 
-            location: { left: left + 10, top: top + 40 }, 
-            size: { width: 55, height: 30 }, color: this.color, bind: false })
-            //@ts-ignore
-            this.scoreBox = new Text.default({ kind: 'text', idx: -1, tabOrder: 0, id: this.name + '-score', text: '', 
-            location: { left: left + 70 , top: top + 3 }, 
-            size: { width: 24, height: 24 }, color: this.color, padding: 10, bind: false })
+            size: { width: 55, height: 30 }, color: this.color, bind: false
+         })
+         //@ts-ignore
+         this.lowerName = new Text.default({
+            kind: 'text', idx: -1, tabOrder: 0, id: this.name + '-lowerText', text: this.lowerText,
+            location: { left: left + 10, top: top + 40 },
+            size: { width: 55, height: 30 }, color: this.color, bind: false
+         })
+         //@ts-ignore
+         this.scoreBox = new Text.default({
+            kind: 'text', idx: -1, tabOrder: 0, id: this.name + '-score', text: '',
+            location: { left: left + 70, top: top + 3 },
+            size: { width: 24, height: 24 }, color: this.color, padding: 10, bind: false
+         })
       }
    }
 
    /** called from Surface/canvasEvents when this element has been touched */
    touched() {
-      fire('ScoreButtonTouched', this.index.toString(), this.index)
+      gameSignals.fire('ScoreButtonTouched', this.index.toString(), this.index)
    }
 
    /** 

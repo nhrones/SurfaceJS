@@ -1,4 +1,4 @@
-/// <reference lib="dom" />
+
 import {DIE_CFG} from '../cfg.js'
 
 let size = 90

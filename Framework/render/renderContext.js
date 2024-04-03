@@ -1,6 +1,6 @@
 // deno-lint-ignore-file no-explicit-any
 import baseManifest from "../base_manifest.js"
-import { signals } from '../events/signals.js'
+import { fire } from '../events/signals.js'
 
 /** 
  * Give access to the current window configuration 
@@ -102,7 +102,7 @@ export const incrementTickCount = () => {
       tickCount = 0 
       solid = !solid
       // fire 'blink' event
-      signals.fire('Blink', "", solid)
+      fire('Blink', "", solid)
    }
 }
 

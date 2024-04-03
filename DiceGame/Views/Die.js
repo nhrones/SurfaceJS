@@ -1,15 +1,6 @@
-/// <reference lib="dom" />
+
 import { ctx } from '../deps.js'
-import { on, fire } from '../main.js'
-// import {
-//     ElementDescriptor,
-//     Location,
-//     View
-// } from '../deps.js'
-
-//import type { } from '../deps.js'
-
-//import { DieIndex } from '../diceGameTypes.js'
+import { gameSignals } from '../main.js'
 import { DIE_CFG } from '../cfg.js'
 import { buildDieFaces } from '../ViewModels/dieFactory.js'
 
@@ -71,9 +62,10 @@ export default class Die {
       //                bind signals
       //================================================
 
-      on('UpdateDie', this.index.toString(), (data) => {
-         this.frozen = data.frozen
-         this.value = data.value
+      gameSignals.on('UpdateDie', this.index.toString(), (data) => {
+         const {value, frozen  } = /** @type {{ index: number, value: number, frozen: boolean }} */ (data)
+         this.frozen = frozen
+         this.value = value
          this.render()
       })
    }
@@ -87,7 +79,7 @@ export default class Die {
    /** called from Surface/canvasEvents when this element has been touched */
    touched() {
       // inform Dice with index data
-      fire(`DieTouched`, "", ({ index: this.index }))
+      gameSignals.fire(`DieTouched`, "", this.index )
    }
 
    update() {

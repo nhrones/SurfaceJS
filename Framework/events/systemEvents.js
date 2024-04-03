@@ -1,8 +1,7 @@
 
 import { activeNodes } from '../render/activeNodes.js'
 import { canvas, ctx, hasVisiblePopup } from '../render/renderContext.js'
-
-import { signals } from './signals.js'
+import { fire } from './signals.js'
 
 //====================================================
 //                Sytem Events Module
@@ -44,7 +43,8 @@ export function initHostEvents() {
       // look for a focused node, if none, just ignore the event
       if (focusedNode !== null) {
          // we'll fire this event directly to amy focused node
-         signals.fire('WindowInput', focusedNode.name, evt)
+         //@ts-ignore
+         fire('WindowInput', focusedNode.name, evt)
       }
    })
 
@@ -69,7 +69,7 @@ export function initHostEvents() {
       // handle Enter key
       if (evt.code === 'Enter') {
          if (hasVisiblePopup === true) {
-            signals.fire(`PopupReset`, "", null)
+            fire(`PopupReset`, "", null)
          } else if (focusedNode !== null) {
             focusedNode.touched()
          }
@@ -78,7 +78,8 @@ export function initHostEvents() {
       // look for a currently `focused` node
       if (focusedNode !== null) {
          // we'll signal only the node with focus
-         signals.fire('WindowKeyDown', focusedNode.name, evt)
+         //@ts-ignore
+         fire('WindowKeyDown', focusedNode.name, evt)
       }
    })
 
@@ -91,7 +92,7 @@ export function initHostEvents() {
             handleClickOrTouch(evt.pageX, evt.pageY)
          } // a popup was open -> just close it
          else {
-            signals.fire(`PopupReset`, "", null)
+            fire(`PopupReset`, "", null)
          }
       }
    }, false)
@@ -111,7 +112,7 @@ export function initHostEvents() {
       evt.preventDefault();
       //@ts-ignore
       const y = (Math.sign(evt.scrollY));
-      signals.fire('Scroll', "", { deltaY: y })
+      fire('Scroll', "", { deltaY: y })
    });
 
 }
@@ -185,7 +186,7 @@ function handleClickOrTouch(mX, mY) {
             focusedNode = node
             // tell others about this newly focused node
             if (focusedNode)
-               signals.fire('Focused', focusedNode.name, true);
+            fire('Focused', focusedNode.name, true);
             hit = true
          }
       }
@@ -199,7 +200,7 @@ function clearFocused() {
    if (focusedNode !== null) {
       focusedNode.focused = false;
       focusedNode.hovered = false
-      signals.fire('Focused', focusedNode.name, focusedNode.focused);
+      fire('Focused', focusedNode.name, focusedNode.focused);
       focusedNode.update();      // re-render the node
    }
 }
@@ -238,7 +239,7 @@ function focusNext(target, _shift) {
                focusedNode.update()
 
                // tell others about this newly focused node 
-               signals.fire('Focused', focusedNode.name, true)
+               fire('Focused', focusedNode.name, true)
             }
             hit = true
          }

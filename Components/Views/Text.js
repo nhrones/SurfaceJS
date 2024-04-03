@@ -1,8 +1,5 @@
 
-import { 
-   ctx, 
-   signals
-} from '../deps.js'
+import { ctx, on } from '../deps.js'
 
 /** 
  *  Plain-text rendering class 
@@ -71,7 +68,7 @@ export default class Text {
       // should this static text `bind` to update signals?
       if (el.bind) {
 
-         signals.on('UpdateText', this.name,
+         on('UpdateText', this.name,
             (/** @type {{ border: boolean; fill: boolean; fillColor: any; fontColor: any; text: string; }} */ data) => {
                this.calculateMetrics()
                this.hasBorder = data.border

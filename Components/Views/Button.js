@@ -1,8 +1,5 @@
 
-import {
-   ctx,
-   signals
-} from '../deps.js'
+import { ctx, fire, on  } from '../deps.js'
 
 import Text from './Text.js'
 
@@ -65,7 +62,7 @@ export default class Button {
       //================================================
 
       // a VM will emit this event whenever it needs to update the view
-      signals.on('UpdateButton', this.name,
+      on('UpdateButton', this.name,
          (/** @type {{ enabled: boolean; color: string; text: string; }} */ data) => {
             this.enabled = data.enabled
             this.color = data.color
@@ -94,7 +91,7 @@ export default class Button {
     */
    touched() {
       if (this.enabled) {
-         signals.fire('ButtonTouched', this.name, null)
+         fire('ButtonTouched', this.name, null)
       }
    }
 

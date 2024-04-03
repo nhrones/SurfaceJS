@@ -1,10 +1,10 @@
-/// <reference lib="dom" />
 import {
+   on,
    setHasVisiblePopup,
    windowCFG,
-   ctx,
-   signals
+   ctx
 } from '../deps.js'
+import { gameSignals } from '../main.js'
 
 let left = 1
 let top = 1
@@ -62,11 +62,12 @@ export default class Popup {
       //================================================
 
       // Our game controller broadcasts this ShowPopup signal at the end of a game
-      signals.on('ShowPopup', "", (data) => {
-         this.show(data)
+      on('ShowPopup', "", (data) => {
+         //@ts-ignore
+         this.show(/** @type { {title: string, msg: string[]} } */ (data))
       })
 
-      signals.on('HidePopup', "", () => this.hide())
+      on('HidePopup', "", () => this.hide())
    }
    /** build a Path2D */
    buildPath(radius) {
@@ -79,7 +80,7 @@ export default class Popup {
     * @param {{ title: string; msg: string[]; }} data
     */
    show(data) {
-      signals.fire('FocusPopup', " ", this)
+      gameSignals.fire('FocusPopup', " ", "")
       this.title = data.title
       this.text = data.msg
       left = this.location.left
@@ -122,7 +123,7 @@ export default class Popup {
    /** called from Surface/canvasEvents when this element has been touched */
    touched() {
       this.hide()
-      signals.fire('PopupReset', '', null)
+      gameSignals.fire('PopupReset', '', '')
    }
 
    /** update this virtual Popups view (render it) */

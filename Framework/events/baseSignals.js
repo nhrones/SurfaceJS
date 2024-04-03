@@ -38,7 +38,7 @@ export const BaseSignals = {
    /** Show \<Popup\> view signal */
    ShowPopup: {
       title: "",
-      msg: []
+      msg: [""]
    },
    
    /** Window Input signal */

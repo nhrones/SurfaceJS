@@ -1,6 +1,6 @@
 
-import { on } from '../main.js'
-import { signals } from '../deps.js'
+import { gameSignals } from '../main.js'
+import { fire } from '../deps.js'
 
 const id = 'player1'
 
@@ -15,7 +15,8 @@ export const state = {
 /** PlayerName ViewModel initialization
  *  Called from DiceGame Controller ctor */
 export const init = () => {
-   on("UpdatePlayer", "0", (data) => {
+   gameSignals.on("UpdatePlayer", "0", (data) => {
+      //@ts-ignore
       state.text = data.text
       update()
    })
@@ -25,5 +26,5 @@ export const init = () => {
 
 /** fires an update signal with the current state */
 export const update = () => {
-   signals.fire('UpdateText', id, state)
+   fire('UpdateText', id, state)
 }
