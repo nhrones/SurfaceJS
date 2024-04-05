@@ -128,7 +128,6 @@ const setScoringFlags = () => {
 
 /** Tests if all 5 die values are the same. */
 const testForFiveOfaKind = () => {
-   //TODO is this correct?
    // did we see 5 of the same?
    if (hasFiveOfaKind) {
       // has fiveOkind been sacrificed by any user?
