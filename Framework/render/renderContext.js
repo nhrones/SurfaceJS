@@ -1,4 +1,4 @@
-// deno-lint-ignore-file no-explicit-any
+
 import baseManifest from "../base_manifest.js"
 import { fire } from '../events/signals.js'
 

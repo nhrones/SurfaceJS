@@ -1,6 +1,6 @@
 
 //==========================================
-//  All exports from the DWM-GUI Framework
+//  All exports from the Surface Framework
 //==========================================
 export { 
    ctx, 
