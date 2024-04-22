@@ -18,7 +18,7 @@ I have another version of _Surface_ that runs an OpenGL Window rendered on Skia-
 Yes it's my same old poker-dice game you've all seen on many platforms.    
 Now, its back on my newly updated Surface framework!
 
-## Usage:
+## Dice Game Usage:
 ```
 Click the 'Roll Button' to start.    
 After each roll of the dice, you can 'click' a die to 'freeze' its value.    
@@ -28,6 +28,12 @@ The blue highlighted numbers indicate possible scores that are available to sele
 Have fun!
 ```
 ## NOTE: Try it now --
-https://nhrones.github.io/SurfaceJS/
+## https://nhrones.github.io/SurfaceJS/
+
+<br/>
+
+![surface](surface.png)
+
+![ui-udf](ui-udf.png)
 
 Copyright 2022-2024, Nick D. Hrones, All rights are reserved.
