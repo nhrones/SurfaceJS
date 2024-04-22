@@ -61,7 +61,7 @@ export class App {
       }
 
       on("ButtonTouched", "help", () => {
-         location.href = 'https://github.com/nhrones/NewDice/blob/main/readme.md'
+         location.href = 'https://github.com/nhrones/SurfaceJS/blob/main/readme.md'
       })
 
       on(`PopupReset`, "", () => {
