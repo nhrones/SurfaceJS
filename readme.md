@@ -1,7 +1,18 @@
-# Surface Framework
+# Surface Framework JS
 Version v0.0.2
 
-An HTMLCanvas based GUI framework
+## An HTMLCanvas based GUI framework
+  - only one DOM element (a single canvas)
+  - MVVM-EA architecture - complete decoupling via signals
+  - very fine grained reactivity using a _SignalAggregator_
+  - pure js -- zero dependencies -- no build steps
+  - extremely efficient -- renders only dirty components    
+
+  Expresses the best of _immediate_ and _retained_ mode graphics   
+
+**_A Desktop GUI_**    
+I have another version of _Surface_ that runs an OpenGL Window rendered on Skia-Canvas
+
 
 ## Example GUI Dice Game
 Yes it's my same old poker-dice game you've all seen on many platforms.    
