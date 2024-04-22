@@ -17,6 +17,6 @@ The blue highlighted numbers indicate possible scores that are available to sele
 Have fun!
 ```
 ## NOTE: Try it now --
-https://github.com/nhrones/SurfaceJS
+https://ndh-dice.surge.sh
 
 Copyright 2022-2024, Nick D. Hrones, All rights are reserved.
