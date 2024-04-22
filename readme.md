@@ -15,10 +15,6 @@ I have another version of _Surface_ that runs an OpenGL Window rendered on Skia-
 
 
 ## Example GUI Dice Game
-Yes it's my same old poker-dice game you've all seen on many platforms.    
-Now, its back on my newly updated Surface framework!
-
-## Dice Game Usage:
 ```
 Click the 'Roll Button' to start.    
 After each roll of the dice, you can 'click' a die to 'freeze' its value.    
