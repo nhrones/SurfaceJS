@@ -29,10 +29,19 @@ export default class Die {
    color
    frozen = false
    value = 0
+   /**
+    * @type {any[]}
+    */
    static frozenFaces
+   /**
+    * @type {any[]}
+    */
    static faces
 
-   /** ctor that instantiates a new vitual Die view  and faces*/
+   /**
+    * ctor that instantiates a new vitual Die view  and faces
+    * @param {{ idx: number; tabOrder: number; id: any; location: { top: any; left: any; }; }} el
+    */
    constructor(el) {
       // build die face images
       if (needToBuild) {
@@ -70,6 +79,9 @@ export default class Die {
       })
    }
 
+   /**
+    * @param {number} radius
+    */
    buildPath(radius) {
       const path = new Path2D
       path.roundRect(this.left, this.top, this.width, this.height, radius)
